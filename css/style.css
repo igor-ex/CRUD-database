@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url(https://fonts.gstatic.com/s/robotoslab/v8/BngMUXZYTXPIvIBgJJSb6ufJ5qA.ttf) format('truetype');
+}
+/* reset */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Roboto Slab', serif;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+/* general */
+.wrapper {
+  padding: 15px;
+  max-width: 1000px;
+  margin: auto;
+}
+.wrapper__title {
+  margin-top: 0;
+  line-height: 1.1;
+}
+.inputs__input,
+.buttons__button {
+  font-size: 20px;
+  padding: 2px 7px;
+  border: 2px solid #000;
+  margin-bottom: 7px;
+}
+.inputs__input:focus,
+.buttons__button:focus {
+  outline: none;
+}
+.inputs {
+  display: flex;
+}
+.inputs__row {
+  margin-right: 10px;
+}
+.inputs__row:last-child {
+  margin-right: 0;
+}
+.inputs__input {
+  display: block;
+  width: 100%;
+}
+.inputs__input:focus {
+  background: #f5fcff;
+}
+@media (max-width: 550px) {
+  .inputs {
+    flex-direction: column;
+  }
+  .inputs__row {
+    margin-right: 0;
+  }
+}
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.buttons__button {
+  margin-right: 10px;
+  background: #aee8ff;
+  padding: 2px 15px;
+  border-radius: 3px;
+}
+.buttons__button:hover {
+  background: #95e1ff;
+}
+@media (max-width: 550px) {
+  .buttons {
+    justify-content: center;
+  }
+}
+.table {
+  width: 100%;
+}
+.table td {
+  padding: 2px 7px;
+}
+.table,
+.table td {
+  border: 2px solid #000;
+  border-collapse: collapse;
+}
+/*# sourceMappingURL=style.css.map */

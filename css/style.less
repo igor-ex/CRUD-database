@@ -1,0 +1,111 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab&subset=cyrillic');
+
+@font-size: 20px;
+@input-vertical-padding: 2px;
+@border: 2px solid #000;
+@input-horizontal-margin: 10px;
+@base-color: #aee8ff;
+
+/* reset */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto Slab', serif;
+    font-size: @font-size;
+    margin: 0;
+    padding: 0;
+}
+
+/* general */
+
+.wrapper {
+    padding: 15px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.wrapper__title {
+    margin-top: 0;
+    line-height: 1.1;
+}
+
+.inputs__input, .buttons__button {
+    font-size: @font-size;
+    padding: @input-vertical-padding 7px;
+    border: @border;
+    margin-bottom: 7px;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.inputs {
+    display: flex;
+
+    &__row{
+        margin-right: @input-horizontal-margin;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &__input {
+        display: block;
+        width: 100%;
+
+        &:focus {
+            background: lighten(@base-color, 14%);
+        }
+    }
+    
+    @media (max-width: 550px) {
+        flex-direction: column;
+        
+        &__row {
+            margin-right: 0;
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+
+    &__button {
+        margin-right: @input-horizontal-margin;
+        background: #aee8ff;
+        padding: @input-vertical-padding 15px;
+        border-radius: 3px;
+
+        &:hover {
+            background: darken(@base-color, 5%);
+        }
+    }
+
+    @media (max-width: 550px) {
+        justify-content: center;
+    }
+}
+
+.table {
+    width: 100%;
+    
+    & td {
+        padding: 2px 7px;
+    }
+    
+    &, & td {
+        border: @border;
+        border-collapse: collapse;
+    }
+}
+
+
+

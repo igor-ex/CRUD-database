@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD & localStorage</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrapper">
+<h1 class="wrapper__title">CRUD & localStorage</h1>
+    <div class="inputs">
+        <div class="inputs__row">
+            <label for="Id">ID</label>
+            <input class="inputs__input" type="text" id="Id">
+        </div>
+        <div class="inputs__row">
+            <label for="fName">First Name</label>
+            <input class="inputs__input" type="text" id="fName">
+        </div>
+        <div class="inputs__row">
+            <label for="lName">Last Name</label>
+            <input class="inputs__input" type="text" id="lName">
+        </div>
+        <div class="inputs__row">
+            <label for="age">Age</label>
+            <input class="inputs__input" type="text" id="age">
+        </div>
+    </div>
+<div class="buttons">
+    <button class="buttons__button" id = "readLs">Read</button>
+    <button class="buttons__button" id = "addStart">addStart</button>
+    <button class="buttons__button" id = "addMiddle">addMiddle</button>
+    <button class="buttons__button" id = "addEnd">addEnd</button>
+</div>
+<div class="buttons">
+    <button class="buttons__button" id = "saveLs">Save</button>
+    <button class="buttons__button" id = "clearLSTab">Clear</button>
+    <button class="buttons__button" id = "delElement">Delete</button>
+    <button class="buttons__button" id = "updateData">Update</button>
+</div>
+    <table id="myTable" class="table">
+        <caption>People</caption>
+        <tbody>
+            <tr>
+                <th>ID</th><th>First Name</th><th>Last Name</th><th>Age</th>
+            </tr>
+        </tbody>
+    </table>
+    <h2>ЧТО СДЕЛАТЬ:</h2>
+    <ol>
+        <li><span class="k">ТО ЧТО СВЯЗАНО С ПОЛЬЗОВАТЕЛЕМ:</span>>
+            <ol>
+                <li>сбор и валидация данных с форм регистрации и авторизации</li>
+                <li>Отсылать запросы на сервер с формы регистрации и авторизации</li>
+                <li>переправка пользователя с одних страничек на другие, например с авторизации на главную, с
+                    регистрации на главную, с главной на авторизацию если не авторизован (с помощью кук, локал сториджа
+                    или параметров запроса в строке адреса, или той штуки (хеша) в строке адреса. При ошибках
+                    авторизации или регистрации никуда не переправлять
+                </li>
+                <li>отображать ошибки авторизации и регистрации</li>
+                <li>отображение логина пользователя на страничке</li>
+                <li>реализация кнопки logout</li>
+            </ol>
+        </li>
+        <li><span class="k">ТО ЧТО СВЯЗАНО С ДАННЫМИ:</span>
+            <ol>
+                <li>начальная подргузка данных (строк) с сервера</li>
+                <li>подготовка данных о добавлении, удалении, изменении строк для отправки на сервер (JSON)</li>
+                <li>валидация строк на невведенные столбцы</li>
+                <li>отображение ошибок о дублировании идентификаторов</li>
+                <li>дисейблинг кнопок если данные в строке ввели непрвильно</li>
+                <li>получение ошибок от сервера о манипуляции с данными (строками)</li>
+            </ol>
+        </li>
+        <li><span class="k">ЛОГИКА НА СЕРВЕРЕ:</span>
+            <ol>
+                <li>установка и настройка базы данных</li>
+                <li>реализация таблиц в базе данных</li>
+                <li>организация создания соединения с базой данных и закрытия соединения</li>
+                <li>получать запросы о авторизации и регистрации и осуществлять их с базой данных и возвращать данные во
+                    фронт энд
+                </li>
+                <li>получать запросы на манипуляции с данными, осуществлять их в базе и посылать данные ответа во фронт
+                    энд
+                </li>
+            </ol>
+        </li>
+    </ol>
+    <style>
+        .k {
+            color: #558b00;
+            background: rgba(255, 255, 0, .3);
+            padding: 2px 10px;
+            font-weight: bold;
+        }
+    </style>
+</div>
+<script src="src/model.js"></script>
+<script src="src/controller.js"></script>
+<script src="src/view.js"></script>
+<script src="src/main.js"></script>
+<script src="src/stripe.js"></script>
+<script src="src/init.js"></script>
+<script>createStripe(document.body);</script>
+</body>
+</html>
