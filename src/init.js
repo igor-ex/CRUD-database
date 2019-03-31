@@ -11,4 +11,10 @@ window.addEventListener('load', () => {
 
     cotroler.views.push(tableView);
     cotroler.model = model;
+
+    cotroler.backEnd = new BackEnd();
+
+    cotroler.user = new User();
+
+    cotroler.init();
 });

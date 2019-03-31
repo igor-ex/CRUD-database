@@ -1,6 +1,6 @@
 
 function User() {
-    this.sessionIndentifier = null;
+    this.sessionIdentifier = null;
 }
 
 User.prototype.isLoggedIn = function () {

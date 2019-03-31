@@ -6,9 +6,48 @@ function BackEnd() {
 //функции доступа к серверу принимают объект с данными и два коллбэка - при успеехе или неуспехе
 //операции. В колбэк будет положен объект данных
 BackEnd.prototype.logIn = function (data, successCallback, failCallback) {
-
+    sendPOST('/loginUser', data, successCallback, failCallback);
 };
 
 BackEnd.prototype.signUp = function (data, successCallback, failCallback) {
-
+    sendPOST('/createUser', data, successCallback, failCallback);
 };
+
+BackEnd.prototype.create = function (data, successCallback, failCallback) {
+    sendPOST('/addNewEntry', data, successCallback, failCallback);
+};
+
+BackEnd.prototype.delete = function (data, successCallback, failCallback) {
+    sendPOST('/removeEntry', data, successCallback, failCallback);
+};
+
+BackEnd.prototype.update = function (data, successCallback, failCallback) {
+    sendPOST('/updateEntry', data, successCallback, failCallback);
+};
+
+BackEnd.prototype.clear = function (data, successCallback, failCallback) {
+    sendPOST('/clearEntry', data, successCallback, failCallback);
+};
+
+function sendPOST(url, data, callback, callbackFail) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            let response;
+            try {
+                response = JSON.parse(xhr.responseText);
+            } catch (e) {
+                response = xhr.responseText;
+            }
+            if (xhr.status === 200) {
+                callback(response);
+            } else {
+                typeof callbackFail === 'function' ? callbackFail(response, xhr.status) : void 0;
+            }
+        }
+    };
+    callback({error: false});
+    xhr.send(JSON.stringify(data));
+}

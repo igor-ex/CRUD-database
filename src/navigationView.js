@@ -84,7 +84,8 @@ NavigationView.prototype.update = function () {
 };
 
 NavigationView.prototype.delElement = function () {
-    this.controller.deleteElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value));
+    //this.controller.deleteElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value));
+    this.controller.deleteElement(this.inpId.value);
 };
 
 NavigationView.prototype.clear = function () {
