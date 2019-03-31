@@ -221,11 +221,11 @@ describe('Testing Controller', function() {
 		});
 	});
 	
-	describe('indexById() method', function () {
+	describe('getIndexById() method', function () {
 		it(`shuld return "-1" for element with unexisting ID from empty controller`, function() {
 			const expected = -1;
 			const e = new Element(11, 'unexists', 'also unexists', 1);
-			const actual = controller.indexById(e.id);
+			const actual = controller.getIndexById(e.id);
 				
 			assert.equal(expected, actual);
 		});		
@@ -242,7 +242,7 @@ describe('Testing Controller', function() {
 			it(`shuld return "${index}" when try to search element width id = ${e.id}`, function() {
 				const expected = index;
 				controller.insertElement(e, index);
-				const actual = controller.indexById(e.id);
+				const actual = controller.getIndexById(e.id);
 				
 				assert.equal(expected, actual);
 			})			
@@ -251,7 +251,7 @@ describe('Testing Controller', function() {
 		it(`shuld return "-1" for element with unexisting ID from not empty controller`, function() {
 			const expected = -1;
 			const e = new Element(11, 'unexists', 'also unexists', 1);
-			const actual = controller.indexById(e.id);
+			const actual = controller.getIndexById(e.id);
 				
 			assert.equal(expected, actual);
 		});				

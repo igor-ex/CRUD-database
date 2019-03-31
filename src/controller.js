@@ -1,4 +1,13 @@
 
+//Элемент-объект для хранения и отображения
+function Entry(id, fName, lName, age) {
+    this.id = id;
+    this.lName = lName;
+    this.fName = fName;
+    this.age = age;
+}
+
+
 //Управление данными
 function Controller() {
     this.model = null;
@@ -8,7 +17,7 @@ function Controller() {
 }
 
 //Поиск элемента в массиве elementsList по его id
-Controller.prototype.indexById = function (id) {
+Controller.prototype.getIndexById = function (id) {
     let rez = -1;
     for (let i = 0; i < this.elementsList.length; i++) {
         if (this.elementsList[i].id === id) {
@@ -30,7 +39,7 @@ Controller.prototype.insertElement = function (e, index) {
         throw "Index out of rage";
     }
 
-    if (this.indexById(e.id) === -1) {
+    if (this.getIndexById(e.id) === -1) {
         this.elementsList.splice(index, 0, e);
 
         //перерисовка всех связанных элементов отображения
@@ -46,7 +55,7 @@ Controller.prototype.insertElement = function (e, index) {
 };
 
 Controller.prototype.deleteElement = function (e) {
-    const index = this.indexById(e.id);
+    const index = this.getIndexById(e.id);
 
     if (index < 0) {
         return false;
@@ -64,7 +73,7 @@ Controller.prototype.deleteElement = function (e) {
 };
 
 Controller.prototype.updateElement = function (e) {
-    const index = this.indexById(e.id);
+    const index = this.getIndexById(e.id);
 
     if (index < 0) {
         return false;

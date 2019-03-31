@@ -12,7 +12,6 @@ function createStripe(cont) {
         canvas.width = width;
         const partLen = width / 5;
         let x = 0;
-        let color;
         let curW;
         while (x < width) {
             ctx.fillStyle = "#"+((1<<24)*Math.random()|0).toString(16);

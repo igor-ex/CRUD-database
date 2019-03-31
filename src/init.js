@@ -12,4 +12,3 @@ window.addEventListener('load', () => {
     cotroler.views.push(tableView);
     cotroler.model = model;
 });
-
