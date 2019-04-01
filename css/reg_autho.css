@@ -37,7 +37,7 @@ label {
 .btn{
     background: linear-gradient(to bottom, rgb(0, 126, 204) 1%, rgb(0, 84, 204) 99%);
     border: none;
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 7px;
     height: 43px;
     width: 150px;
@@ -52,3 +52,10 @@ label {
     box-shadow: rgb(100,225,255) 0 0 5px, inset rgba(0, 0, 0, .1) 0 1px 3px;
 }
 
+.error{
+    font-size: 18px;
+    padding-top: 30px;
+    height: 2em;
+    padding-bottom: 10px;
+    color: #f00;
+}

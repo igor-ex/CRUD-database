@@ -7,6 +7,8 @@ function User() {
 User.prototype.init = function () {
     //проверить есть ли данные о пользователе и установить user.sessionIdentifier;
     this.sessionIdentifier = 1;
+    const logoutEl = document.getElementById('logOut');
+    logoutEl.addEventListener('click', this.logOut);
 };
 
 User.prototype.isLoggedIn = function () {
@@ -17,6 +19,7 @@ User.prototype.signUp = function (data) {
     const be = new BackEnd();
     be.signUp(data, response => {
         if (!response.err) {
+            this.goToLogInPage();
             return true;
         } else {
             alert(response.message);
@@ -37,6 +40,7 @@ User.prototype.logIn = function (data) {
     be.logIn(data, response => {
         if (!response.err) {
             this.saveIdentifier(response.id);
+            this.goToMainPage();
             return true;
         } else {
             alert(response.message);
@@ -52,12 +56,15 @@ User.prototype.saveIdentifier = function (id) {
     localStorage.setItem("sessionIdentifier", id);
 };
 
+User.prototype.logOut = function () {
+    localStorage.removeItem('sessionIdentifier');
+    location.href = 'public/singIn (authorization).html';
+};
+
 User.prototype.goToMainPage = function () {
-    //переводит на главную страницу если удачно залогинился
-    //с помощью location.href
+    location.href = '../CRUD & database.html';
 };
 
 User.prototype.goToLogInPage = function () {
-    //переводит на страницу авторизации если не this.isLoggedIn()
-    //с помощью location.href
+    location.href = 'singIn (authorization).html';
 };
