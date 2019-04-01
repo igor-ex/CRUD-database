@@ -13,22 +13,43 @@ User.prototype.isLoggedIn = function () {
     return true;
 };
 
-User.prototype.logIn = function (userName, password) {
+User.prototype.signUp = function (data) {
+    const be = new BackEnd();
+    be.signUp(data, response => {
+        if (!response.err) {
+            return true;
+        } else {
+            alert(response.message);
+            return false;
+        }
+    }, response => {
+        alert('server fails');
+        return false;
+    });
+};
+
+User.prototype.logIn = function (data) {
     //идентификатор сессии надо хранить в двух местах -
     // в этом объекте, и во врором месте
     // (если реализуеем) - куках или localStorage
 
-    //тут лезем на сервер и пытаемся получить sessionIdentifier
-    //кладем колбэк на функцию которая полезет на сервер, и то что дальше в этой функции
-    //будет выполняться уже внутри колбэка!!!
-
-    //this.saveSessionIdentifier(identifier);
-    //this.sessionIdentifier =
-    //this.goToMainPage()
+    const be = new BackEnd();
+    be.logIn(data, response => {
+        if (!response.err) {
+            this.saveIdentifier(response.id);
+            return true;
+        } else {
+            alert(response.message);
+            return false;
+        }
+    }, response => {
+        alert('server fails');
+        return false;
+    });
 };
 
-User.prototype.saveIdentifier = function (identifier) {
-    //сохранять в куках, локал сторидже или еще где-то
+User.prototype.saveIdentifier = function (id) {
+    localStorage.setItem("sessionIdentifier", id);
 };
 
 User.prototype.goToMainPage = function () {
