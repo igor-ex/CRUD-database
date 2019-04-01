@@ -1,4 +1,5 @@
 .idea/
 *.css.map
+css/*.css.map
 node_modules/
 sss/
