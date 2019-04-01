@@ -1,3 +1,4 @@
+'use strict';
 
 //Долговременное сохранение данных в LocalStorage
 function Model(idLS) {

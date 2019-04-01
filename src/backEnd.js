@@ -1,3 +1,4 @@
+'use strict';
 
 function BackEnd() {
 
@@ -48,6 +49,6 @@ function sendPOST(url, data, callback, callbackFail) {
             }
         }
     };
-    callback({error: false});
+    //callback({error: false});
     xhr.send(JSON.stringify(data));
 }

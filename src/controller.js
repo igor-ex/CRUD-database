@@ -1,3 +1,4 @@
+'use strict';
 
 //Элемент-объект для хранения и отображения
 function Entry(id, fName, lName, age) {
@@ -19,6 +20,7 @@ function Controller() {
 }
 
 Controller.prototype.init = function () {
+    this.user.init();
     if (!this.user.isLoggedIn()) {
         setError('Вы не авторизованы в системе')
     }
@@ -134,6 +136,20 @@ Controller.prototype.clear = function () {
 };
 
 Controller.prototype.load = function () {
+    this.backEnd.load(this.user.sessionIdentifier, data => {
+        if (!data.err) {
+            //отрисовка всех связанных элементов отображения
+            this.views.forEach(function (view) {
+                view.repaint('fullupdate', 0, data.entries)
+            });
+        } else {
+            setError(data.message);
+        }
+    });
+    return true;
+};
+
+Controller.prototype.loadLocalStorage = function () {
     this.clear();
 
     //Работа без хранения данных

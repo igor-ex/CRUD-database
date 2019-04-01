@@ -1,3 +1,4 @@
+'use strict';
 
 //Табличное представление для Controller
 function TableView() {

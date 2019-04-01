@@ -1,3 +1,4 @@
+'use strict';
 
 //Управление для Controller
 function NavigationView() {
@@ -93,7 +94,7 @@ NavigationView.prototype.clear = function () {
 };
 
 NavigationView.prototype.load = function () {
-    this.controller.load();
+    this.controller.loadLocalStorage();
 };
 
 NavigationView.prototype.save = function () {

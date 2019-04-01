@@ -1,4 +1,10 @@
 @font-face {
+  font-family: 'Alfa Slab One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Alfa Slab One Regular'), local('AlfaSlabOne-Regular'), url(https://fonts.gstatic.com/s/alfaslabone/v8/6NUQ8FmMKwSEKjnm5-4v-4Jh2dJhfg.ttf) format('truetype');
+}
+@font-face {
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 400;
@@ -15,14 +21,51 @@ body {
   padding: 0;
 }
 /* general */
+.page-title {
+  font-family: alfa slab one, cursive;
+  margin-top: 0;
+  line-height: 1.1;
+  max-width: 1000px;
+  margin: auto;
+  padding: 14px 15px 13px;
+  position: relative;
+  color: #558b00;
+  background: #ffffb2;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
+  font-weight: normal;
+}
+@media (max-width: 750px) {
+  .page-title {
+    text-align: center;
+  }
+}
+.page-title::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+  width: 100%;
+  height: 20px;
+  background: url(bg.svg);
+  background-position-x: -5px;
+  filter: drop-shadow(3px 0px 2px rgba(0, 0, 0, 0.4));
+  z-index: -1;
+}
+.page-title::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  height: 20px;
+  width: 10px;
+  background: white;
+}
 .wrapper {
   padding: 15px;
   max-width: 1000px;
   margin: auto;
-}
-.wrapper__title {
-  margin-top: 0;
-  line-height: 1.1;
 }
 .error-messages {
   padding-bottom: 20px;

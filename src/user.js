@@ -1,10 +1,16 @@
+'use strict';
 
 function User() {
     this.sessionIdentifier = null;
 }
 
-User.prototype.isLoggedIn = function () {
+User.prototype.init = function () {
+    //проверить есть ли данные о пользователе и установить user.sessionIdentifier;
+    this.sessionIdentifier = 1;
+};
 
+User.prototype.isLoggedIn = function () {
+    return true;
 };
 
 User.prototype.logIn = function (userName, password) {

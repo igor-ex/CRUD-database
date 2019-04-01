@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<h1 class="page-title">CRUD & database</h1>
 <div class="wrapper">
-<h1 class="wrapper__title">CRUD & database</h1>
     <div id="errorMessages" class="error-messages"></div>
     <div class="inputs">
         <div class="inputs__row">
@@ -28,16 +28,11 @@
         </div>
     </div>
 <div class="buttons">
-    <button class="buttons__button" id = "readLs">Read</button>
-    <button class="buttons__button" id = "addStart">addStart</button>
-    <button class="buttons__button" id = "addMiddle">addMiddle</button>
-    <button class="buttons__button" id = "addEnd">addEnd</button>
-</div>
-<div class="buttons">
-    <button class="buttons__button" id = "saveLs">Save</button>
-    <button class="buttons__button" id = "clearLSTab">Clear</button>
-    <button class="buttons__button" id = "delElement">Delete</button>
+    <button class="buttons__button" id = "addEnd">Insert</button>
     <button class="buttons__button" id = "updateData">Update</button>
+    <button class="buttons__button" id = "delElement">Delete</button>
+    <button class="buttons__button" id = "clearLSTab">Clear</button>
+    <button class="buttons__button" id = "saveLs">Save</button>
 </div>
     <table id="myTable" class="table">
         <caption>People</caption>
@@ -104,8 +99,6 @@
 <script src="src/navigationView.js"></script>
 <script src="src/tableView.js"></script>
 <script src="src/main.js"></script>
-<script src="src/stripe.js"></script>
 <script src="src/init.js"></script>
-<script>createStripe(document.body);</script>
 </body>
 </html>
