@@ -14,6 +14,7 @@ TableView.prototype.init = function (tableName) {
 };
 
 TableView.prototype.insertRow = function (index, e) {
+    this.table.style.visibility = 'visible';
     const tbody = this.table.getElementsByTagName("TBODY")[0];
     const row = tbody.insertRow(index); //создание новой строки
 
