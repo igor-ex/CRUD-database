@@ -1,0 +1,54 @@
+body {
+    font-family: tahoma;
+}
+
+.registration{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    text-align: center;
+    font-size: 40px;
+}
+
+label {
+    display: block;
+    padding-bottom: 5px;
+    padding-top: 15px;
+}
+
+.registration input{
+    height: 35px;
+    width: 600px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0, .3);
+    padding: 3px 15px;
+    box-shadow: inset rgba(0, 0, 0, .1) 0 1px 3px;
+}
+
+.registration input:focus {
+    outline: none;
+    box-shadow: rgb(100,225,255) 0 0 5px, inset rgba(0, 0, 0, .1) 0 1px 3px;
+    border: 1px solid rgb(100,225,255);
+}
+
+.btn{
+    background: linear-gradient(to bottom, rgb(0, 126, 204) 1%, rgb(0, 84, 204) 99%);
+    border: none;
+    margin-top: 20px;
+    border-radius: 7px;
+    height: 43px;
+    width: 150px;
+    color: white;
+    text-align: center;
+    display: block;
+    outline: none;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: rgb(100,225,255) 0 0 5px, inset rgba(0, 0, 0, .1) 0 1px 3px;
+}
+
