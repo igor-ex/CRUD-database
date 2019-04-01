@@ -16,11 +16,11 @@ var mailEl = document.getElementById('mail');
 var oneEl = document.getElementById("password");
 var twoEl = document.getElementById("password2");
 
-const btnSingUp = document.getElementById("Sign up");
+const btnSingUp = document.getElementById("SignUp");
 
 //regForm.addEventListener('submit', );
 btnSingUp.addEventListener('click', submitListener);
-function submitListener () {
+function submitListener (event) {
     var name = nameEl.value;
     var loginNotEmpty = name.trim() !== '';
 
@@ -35,7 +35,7 @@ function submitListener () {
 
     if (loginNotEmpty && mailIsMail && comp_flag && passNotEmpty) {
         const user = new User;
-        user.signUp({});
+        user.signUp({username: name, email: mail, password});
         return true; // пароли совпадают
     } else {
         if (!loginNotEmpty) {
@@ -52,10 +52,10 @@ function submitListener () {
 
         if (!comp_flag) {
             alert("Ошибка! Пароли не совпадают.");
-        }
-
-        return false; // пароли не совпадают
+        }// пароли не совпадают
     }
+    event.preventDefault();
+    return false;
 }
 
 btnSingUp.addEventListener("click", saveLS);
@@ -64,7 +64,7 @@ btnSingUp.addEventListener("click", saveLS);
 const inputLs = document.querySelectorAll(".input-ls");
 
 function saveLS() {
-    dataUser = {
+    var dataUser = {
         loginUser: inputLs[0].value,
         emailUser: inputLs[1].value,
         passwordUser: inputLs[2].value,

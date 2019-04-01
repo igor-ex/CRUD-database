@@ -7,7 +7,7 @@ function BackEnd() {
 //функции доступа к серверу принимают объект с данными и два коллбэка - при успеехе или неуспехе
 //операции. В колбэк будет положен объект данных
 BackEnd.prototype.logIn = function (data, successCallback, failCallback) {
-    sendPOST('/loginUser', data, successCallback, failCallback);
+    sendPOST('http://localhost:3000/loginUser', data, successCallback, failCallback);
 };
 
 BackEnd.prototype.signUp = function (data, successCallback, failCallback) {
@@ -49,6 +49,6 @@ function sendPOST(url, data, callback, callbackFail) {
             }
         }
     };
-    callback({error: false});
+    //callback({error: false});
     xhr.send(JSON.stringify(data));
 }

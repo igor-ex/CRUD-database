@@ -67,6 +67,11 @@ body {
   max-width: 1000px;
   margin: auto;
 }
+.logout {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
 .error-messages {
   padding-bottom: 20px;
   color: #f00;
