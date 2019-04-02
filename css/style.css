@@ -142,7 +142,7 @@ body {
 }
 .table {
   width: 100%;
-  visibility: hidden;
+  /*visibility: hidden;*/
 }
 .table td {
   padding: 2px 7px;

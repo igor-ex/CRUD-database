@@ -15,7 +15,7 @@ function Controller() {
     this.elementsList = [];
 
     this.views = [];  //Ссылки на Views которым нужно оповещение в случае изменений в контроллере
-    this.backEnd = false;
+    this.backEnd = null;
     this.user = null;
 
     this.arrError = [];
@@ -69,15 +69,12 @@ Controller.prototype.insertElement = function (e, index) {
                     view.repaint('insert', index, arr)
                 });
             } else {
-        //        setErrorInput('Id','inputIdError',response.message);
+        //        setError(response.message);
                 this.arrError.push({entryField: 'id', errStr:response.message});
                 }
         });
         return true;
     } else {
-        // setError('Такой Id уже имеется, введите уникальный');
-        // const inputId = document.getElementById('Id');
-        // inputId.className = 'error';
         this.arrError.push({entryField: 'id', errStr:'Такой Id уже имеется, введите уникальный'});
         return false;
     }
@@ -109,6 +106,7 @@ Controller.prototype.deleteElement = function (id) {
     const index = this.getIndexById(id);
 
     if (index < 0) {
+        this.arrError.push({entryField: 'id', errStr: 'Тaкой строки нет в таблице'});
         return false;
     }
     const data = {id, userID: this.user.sessionIdentifier};
@@ -122,7 +120,8 @@ Controller.prototype.deleteElement = function (id) {
                 view.repaint('delete', index, arr)
             });
         } else {
-            setError(data.message);
+       //   setError(data.message);
+            this.arrError.push({entryField: 'id', errStr: data.message});
         }
     });
     return true;
@@ -176,7 +175,8 @@ Controller.prototype.clear = function () {
                 view.repaint('clear', 0, arr)
             });
         } else {
-            setError(data.message);
+//            setError(data.message);
+            this.arrError.push({entryField: 'id', errStr:data.message});
         }
     });
     return true;
@@ -232,32 +232,12 @@ Controller.prototype.save = function () {
     }
 };
 
-// Controller.prototype.changeInputId = function () {
-//    document.getElementById('inputIdError').innerHTML='';
-// };
-//
-// Controller.prototype.changeInputFName = function () {
-//     document.getElementById('inputFNameError').innerHTML='';
-// };
-//
-// Controller.prototype.changeInputLName = function () {
-//     document.getElementById('inputLNameError').innerHTML='';
-// };
-//
-// Controller.prototype.changeInputAge = function () {
-//     document.getElementById('inputAgeError').innerHTML='';
-// };
-
-// function setError(str) {
-//     const cont = document.getElementById('errorMessages');
-//     cont.innerText = str;
-// }
+function setError(str) {
+    const cont = document.getElementById('errorMessages');
+    cont.innerText = str;
+}
 
 
-
-// function clearErrorInput(idInput, idError) {
-//
-// }
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);

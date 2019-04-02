@@ -127,13 +127,19 @@ NavigationView.prototype.update = function () {
 
 NavigationView.prototype.delElement = function () {
     //this.controller.deleteElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value));
-    this.controller.deleteElement(this.inpId.value);
+    if (!this.controller.deleteElement(this.inpId.value)){
+        this.setAllErrorInput(this.controller.arrError);
+    } else {
+        this.clearAllErrorInput();
+    }
 };
 
 NavigationView.prototype.load = function () {
-    this.controller.loadLocalStorage();
-    this.clearAllErrorInput();
-
+    if (!this.controller.loadLocalStorage()){
+        this.setAllErrorInput(this.controller.arrError);
+    } else {
+        this.clearAllErrorInput();
+    }
 };
 
 NavigationView.prototype.save = function () {
@@ -141,7 +147,11 @@ NavigationView.prototype.save = function () {
 };
 
 NavigationView.prototype.clear = function () {
-    this.controller.clear();
+    if (!this.controller.clear()){
+        this.setAllErrorInput(this.controller.arrError);
+    } else {
+        this.clearAllErrorInput();
+    }
 };
 
 NavigationView.prototype.setAllErrorInput = function(arrError) {

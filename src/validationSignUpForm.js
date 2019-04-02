@@ -35,7 +35,7 @@ function submitListener (event) {
 
     if (loginNotEmpty && mailIsMail && comp_flag && passNotEmpty) {
         const user = new User;
-        user.signUp({username: name, email: mail, password});
+        user.signUp({username: name, email: mail, password: one});
         return true; // пароли совпадают
     } else {
         if (!loginNotEmpty) {

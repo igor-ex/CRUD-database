@@ -45,10 +45,11 @@ function sendPOST(url, data, callback, callbackFail) {
             if (xhr.status === 200) {
                 callback(response);
             } else {
+                console.log("response status", xhr.status, xhr.responseText);
                 typeof callbackFail === 'function' ? callbackFail(response, xhr.status) : void 0;
             }
         }
     };
-    callback({error: false});
+    //callback({error: false});
     xhr.send(JSON.stringify(data));
 }
