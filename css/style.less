@@ -81,11 +81,21 @@ body {
     .wrapping();
 }
 
-.logout {
-    cursor: pointer;
-    -webkit-user-select: none;
-    user-select: none;
+.user-nav {
+    display: flex;
+    justify-content: space-between;
+
+    &__logout {
+         cursor: pointer;
+         user-select: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+     }
 }
+
+
 
 .error-messages {
     padding-bottom: 20px;

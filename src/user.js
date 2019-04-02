@@ -6,13 +6,29 @@ function User() {
 
 User.prototype.init = function () {
     //проверить есть ли данные о пользователе и установить user.sessionIdentifier;
-    this.sessionIdentifier = 1;
+    this.isLoggedIn(res => {
+        if (!res.err) {
+            this.sessionIdentifier = this.getIdentifier();
+            const usernameCont = document.getElementById('usernameCont');
+            usernameCont.innerText = localStorage.getItem('userLogin');
+        } else {
+            this.goToLogInPage();
+        }
+    }, res => {
+        setError('Ошибка сервера. Вы не можете добавлять данные в базу');
+    });
+
     const logoutEl = document.getElementById('logOut');
-    logoutEl.addEventListener('click', this.logOut);
+    logoutEl.addEventListener('click', this.logOut.bind(this));
 };
 
-User.prototype.isLoggedIn = function () {
-    return true;
+User.prototype.isLoggedIn = function (callback, failCallback) {
+    const sessionId = localStorage.getItem("sessionIdentifier");
+    // if (sessionId === null) {
+    //     return false;
+    // }
+    const backEnd = new BackEnd();//плохое решение!!!
+    backEnd.checkSession(sessionId,callback, failCallback);
 };
 
 User.prototype.signUp = function (data) {
@@ -40,6 +56,7 @@ User.prototype.logIn = function (data) {
     be.logIn(data, response => {
         if (!response.err) {
             this.saveIdentifier(response.id);
+            localStorage.setItem('userLogin', data.username);
             this.goToMainPage();
             return true;
         } else {
@@ -56,8 +73,18 @@ User.prototype.saveIdentifier = function (id) {
     localStorage.setItem("sessionIdentifier", id);
 };
 
-User.prototype.logOut = function () {
+User.prototype.getIdentifier = function () {
+    return localStorage.getItem("sessionIdentifier");
+};
+
+User.prototype.removeIdentifier = function () {
     localStorage.removeItem('sessionIdentifier');
+};
+
+User.prototype.logOut = function () {
+    this.removeIdentifier();
+    localStorage.removeItem('userLogin');
+
     location.href = 'public/singIn (authorization).html';
 };
 

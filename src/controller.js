@@ -21,9 +21,6 @@ function Controller() {
 
 Controller.prototype.init = function () {
     this.user.init();
-    if (!this.user.isLoggedIn()) {
-        setError('Вы не авторизованы в системе')
-    }
 };
 
 //Поиск элемента в массиве elementsList по его id
@@ -140,7 +137,7 @@ Controller.prototype.load = function () {
         if (!data.err) {
             //отрисовка всех связанных элементов отображения
             this.views.forEach(function (view) {
-                view.repaint('fullupdate', 0, data.entries)
+                view.repaint('fullupdate', 0, data.rows)
             });
         } else {
             setError(data.message);

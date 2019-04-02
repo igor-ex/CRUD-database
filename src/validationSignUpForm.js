@@ -58,21 +58,3 @@ function submitListener (event) {
     return false;
 }
 
-btnSingUp.addEventListener("click", saveLS);
-
-
-const inputLs = document.querySelectorAll(".input-ls");
-
-function saveLS() {
-    var dataUser = {
-        loginUser: inputLs[0].value,
-        emailUser: inputLs[1].value,
-        passwordUser: inputLs[2].value,
-    };
-    localStorage.setItem("dataUser", JSON.stringify(dataUser));
-}
-
-
-//
-
-
