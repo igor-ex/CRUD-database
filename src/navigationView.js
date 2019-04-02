@@ -33,6 +33,12 @@ NavigationView.prototype.init = function (controller) {
     this.inpLName = document.getElementById('lName');
     this.inpAge = document.getElementById('age');
 
+    this.errInpId = document.getElementById('inputIdError');
+    this.errInpFName = document.getElementById('inputFNameError');
+    this.errInpLName = document.getElementById('inputLNameError');
+    this.errInpAge = document.getElementById('inputAgeError');
+
+
     this.controller = controller;
 
     if (this.btnAddStart) {
@@ -66,22 +72,57 @@ NavigationView.prototype.init = function (controller) {
     if (this.btnUpdate) {
         this.btnUpdate.addEventListener('click', this.update.bind(this));
     }
+
+    if (this.inpId) {
+        this.inpId.addEventListener('input', this.changeInputId.bind(this));
+    }
+
+    if (this.inpFName) {
+        this.inpFName.addEventListener('input', this.changeInputFName.bind(this));
+    }
+
+    if (this.inpLName) {
+        this.inpLName.addEventListener('input', this.changeInputLName.bind(this));
+    }
+
+    if (this.inpAge) {
+        this.inpAge.addEventListener('input', this.changeInputAge.bind(this));
+    }
+
 };
 
 NavigationView.prototype.addStart = function () {
-    this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value), 0);
+    if (!this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value), 0)) {
+        this.setAllErrorInput(this.controller.arrError);
+    } else {
+        this.clearAllErrorInput();
+
+    }
 };
 
 NavigationView.prototype.addEnd = function () {
-    this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value));
+    if (!this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value))) {
+        this.setAllErrorInput(this.controller.arrError);
+    } else {
+        this.clearAllErrorInput();
+
+    }
 };
 
 NavigationView.prototype.addMiddle = function () {
-    this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value), Math.round(this.controller.elementsList.length / 2));
+    if (!this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value), Math.round(this.controller.elementsList.length / 2))) {
+        this.setAllErrorInput(this.controller.arrError);
+    } else {
+        this.clearAllErrorInput();
+    }
 };
 
 NavigationView.prototype.update = function () {
-    this.controller.updateElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value));
+    if (!this.controller.updateElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value))) {
+        this.setAllErrorInput(this.controller.arrError);
+    } else {
+        this.clearAllErrorInput();
+    }
 };
 
 NavigationView.prototype.delElement = function () {
@@ -89,14 +130,72 @@ NavigationView.prototype.delElement = function () {
     this.controller.deleteElement(this.inpId.value);
 };
 
-NavigationView.prototype.clear = function () {
-    this.controller.clear();
-};
-
 NavigationView.prototype.load = function () {
     this.controller.loadLocalStorage();
+    this.clearAllErrorInput();
+
 };
 
 NavigationView.prototype.save = function () {
     this.controller.save();
+};
+
+NavigationView.prototype.clear = function () {
+    this.controller.clear();
+};
+
+NavigationView.prototype.setAllErrorInput = function(arrError) {
+    for (let i = 0; i < arrError.length; i++ ) {
+        switch (arrError[i].entryField) {
+            case "id": {
+                this.setErrorInput(this.inpId, this.errInpId, this.controller.arrError[i].errStr);
+                break;
+            }
+            case "fName": {
+                this.setErrorInput(this.inpFName, this.errInpFName, this.controller.arrError[i].errStr);
+                break;
+            }
+            case "lName": {
+                this.setErrorInput(this.inpLName, this.errInpLName, this.controller.arrError[i].errStr);
+                break;
+            }
+            case "age": {
+                this.setErrorInput(this.inpAge, this.errInpAge, this.controller.arrError[i].errStr);
+                break;
+            }
+        }
+    }
+};
+
+
+NavigationView.prototype.setErrorInput = function(inp, err, errStr) {
+    err.innerText = errStr;
+};
+
+NavigationView.prototype.clearErrorInput = function(inp, err) {
+    err.innerText = '';
+};
+
+NavigationView.prototype.clearAllErrorInput = function() {
+    this.changeInputId();
+    this.changeInputFName();
+    this.changeInputLName();
+    this.changeInputAge();
+};
+
+
+NavigationView.prototype.changeInputId = function() {
+    this.clearErrorInput(this.inpId, this.errInpId);
+};
+
+NavigationView.prototype.changeInputFName = function() {
+    this.clearErrorInput(this.inpFName, this.errInpFName);
+};
+
+NavigationView.prototype.changeInputLName = function() {
+    this.clearErrorInput(this.inpLName, this.errInpLName);
+};
+
+NavigationView.prototype.changeInputAge = function() {
+    this.clearErrorInput(this.inpAge, this.errInpAge);
 };

@@ -1,16 +1,18 @@
+const nameEl = document.getElementById('name');
+const passEl = document.getElementById('password');
+const btnSingIn = document.getElementById('signIn');
+const error = document.getElementById('idDivError');
 
-var nameEl = document.getElementById('name');
-var passEl = document.getElementById("password");
-
-const btnSingIn = document.getElementById("signIn");
 
 btnSingIn.addEventListener('click', submitListener);
-function submitListener (event) {
-    var name = nameEl.value;
-    var loginNotEmpty = name.trim() !== '';
+nameEl.addEventListener('input',()=> {error.innerHTML = '';});
+passEl.addEventListener('input',()=> {error.innerHTML = '';});
+function submitListener(event) {
+    const name = nameEl.value;
+    const loginNotEmpty = name.trim() !== '';
 
-    var pass = passEl.value;
-    var passNotEmpty = pass.trim() !== '';
+    const pass = passEl.value;
+    const passNotEmpty = pass.trim() !== '';
 
     if (loginNotEmpty && passNotEmpty) {
         const user = new User;
@@ -18,11 +20,12 @@ function submitListener (event) {
         return true;
     } else {
         if (!loginNotEmpty) {
-            alert('Ошибка. Поле Логин не заполнено');
+            error.innerHTML = 'Ошибка. Поле Логин не заполнено';
+            return false;
         }
 
         if (!passNotEmpty) {
-            alert('Ошибка. Пароль не должен быть пустым');
+            error.innerHTML = 'Ошибка. Пароль не должен быть пустым';
         }
     }
     event.preventDefault();

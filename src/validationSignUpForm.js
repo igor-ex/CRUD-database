@@ -9,29 +9,29 @@
 //     }
 // });
 
-var regForm = document.getElementById('regForm');
-
-var nameEl = document.getElementById('name');
-var mailEl = document.getElementById('mail');
-var oneEl = document.getElementById("password");
-var twoEl = document.getElementById("password2");
-
-const btnSingUp = document.getElementById("SignUp");
+const regForm = document.getElementById('regForm');
+const nameEl = document.getElementById('name');
+const mailEl = document.getElementById('mail');
+const oneEl = document.getElementById('password');
+const twoEl = document.getElementById('password2');
+const error = document.getElementById('idDivError')
+const btnSingUp = document.getElementById('SignUp');
 
 //regForm.addEventListener('submit', );
 btnSingUp.addEventListener('click', submitListener);
+nameEl.addEventListener('input',clearError)
 function submitListener (event) {
-    var name = nameEl.value;
-    var loginNotEmpty = name.trim() !== '';
+    const name = nameEl.value;
+    const loginNotEmpty = name.trim() !== '';
 
-    var mail = mailEl.value;
-    var mailIsMail = mail.indexOf('@') > 0;
+    const mail = mailEl.value;
+    const mailIsMail = mail.indexOf('@') > 0;
 
-    var one = oneEl.value;
-    var two = twoEl.value;
-    var comp_flag = one === two;
+    const one = oneEl.value;
+    const two = twoEl.value;
+    const comp_flag = one === two;
 
-    var passNotEmpty = one.trim() !== '';
+    const passNotEmpty = one.trim() !== '';
 
     if (loginNotEmpty && mailIsMail && comp_flag && passNotEmpty) {
         const user = new User;
@@ -39,22 +39,29 @@ function submitListener (event) {
         return true; // пароли совпадают
     } else {
         if (!loginNotEmpty) {
-            alert('Ошибка. Поле Логин не заполнено');
+            error.innerHTML = 'Ошибка! Поле Логин не заполнено';
+            return false;
         }
 
         if (!mailIsMail) {
-            alert('Ошибка! Поле email заполнено неправильно');
+            error.innerHTML = 'Ошибка! Поле email заполнено неправильно';
+            return false;
         }
 
         if (!passNotEmpty) {
-            alert('Ошибка. Пароль не должен быть пустым');
+            error.innerHTML = 'Ошибка! Пароль не должен быть пустым';
+            return false;
         }
 
         if (!comp_flag) {
-            alert("Ошибка! Пароли не совпадают.");
-        }// пароли не совпадают
+            error.innerHTML = 'Ошибка! Пароли не совпадают.';
+
+        }
     }
     event.preventDefault();
     return false;
 }
 
+function clearError () {
+    error.innerHTML = '';
+}

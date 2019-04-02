@@ -17,6 +17,8 @@ function Controller() {
     this.views = [];  //Ссылки на Views которым нужно оповещение в случае изменений в контроллере
     this.backEnd = false;
     this.user = null;
+
+    this.arrError = [];
 }
 
 Controller.prototype.init = function () {
@@ -44,6 +46,13 @@ Controller.prototype.insertElement = function (e, index) {
     if (index > this.elementsList.length || index < 0) {
         throw "Index out of rage";
     }
+
+    //Проверка значений полей элемента
+    this.arrError = this.checkElementFields(e);
+    if(this.arrError.length > 0) {
+        return false;
+    }
+
     if (this.getIndexById(e.id) === -1) {//проверка на дубликат id
         const data = {};
         Object.assign(data, e);
@@ -57,13 +66,39 @@ Controller.prototype.insertElement = function (e, index) {
                     view.repaint('insert', index, arr)
                 });
             } else {
-                setError(response.message);
-            }
+        //        setErrorInput('Id','inputIdError',response.message);
+                this.arrError.push({entryField: 'id', errStr:response.message});
+                }
         });
         return true;
     } else {
+        // setError('Такой Id уже имеется, введите уникальный');
+        // const inputId = document.getElementById('Id');
+        // inputId.className = 'error';
+        this.arrError.push({entryField: 'id', errStr:'Такой Id уже имеется, введите уникальный'});
         return false;
     }
+};
+
+Controller.prototype.checkElementFields = function (e) {
+     const arrError = [];
+
+    if (!e.id || !isNumeric(e.id)) {
+        arrError.push({entryField: 'id', errStr: 'Неправильно введено поле Id(целое число >0)'});
+    }
+
+    if (!e.fName || typeof (e.fName) !== 'string') {
+        arrError.push({entryField: 'fName', errStr: 'Неправильно введено поле First Name'});
+    }
+
+    if (!e.lName || typeof (e.lName) !== 'string') {
+        arrError.push({entryField: 'lName', errStr: 'Неправильно введено поле Last Name'});
+    }
+
+    if (!e.age || !isNumeric(e.age) || e.age <= 0 || e.age > 130) {
+        arrError.push({entryField: 'age', errStr: 'Неправильно введено поле Age (0<Age<130)'});
+    }
+    return arrError;
 };
 
 Controller.prototype.deleteElement = function (id) {
@@ -91,11 +126,21 @@ Controller.prototype.deleteElement = function (id) {
 };
 
 Controller.prototype.updateElement = function (e) {
-    const index = this.getIndexById(e.id);
+    this.arrError = [];
 
+    //Проверка на существование элемента
+    const index = this.getIndexById(e.id);
     if (index < 0) {
+        this.arrError.push({entryField: 'id', errStr: 'Тaкой строки нет в таблице, нажмите Insert'});
         return false;
     }
+
+    //Проверка значений полей элемента
+    this.arrError = this.checkElementFields(e);
+    if(this.arrError.length > 0) {
+        return false;
+    }
+
     const data = {};
     Object.assign(data, e);
     data.userID = this.user.sessionIdentifier;
@@ -109,9 +154,11 @@ Controller.prototype.updateElement = function (e) {
                 view.repaint('update', index, arr)
             });
         } else {
-            setError(data.message);
+//            setError(data.message);
+            this.arrError.push({entryField: 'id', errStr:data.message});
         }
     });
+
     return true;
 };
 
@@ -133,14 +180,17 @@ Controller.prototype.clear = function () {
 };
 
 Controller.prototype.load = function () {
+
     this.backEnd.load(this.user.sessionIdentifier, data => {
         if (!data.err) {
+
             //отрисовка всех связанных элементов отображения
             this.views.forEach(function (view) {
                 view.repaint('fullupdate', 0, data.rows)
             });
         } else {
-            setError(data.message);
+//            setError(data.message);
+            this.arrError.push({entryField: 'id', errStr:data.message});
         }
     });
     return true;
@@ -179,7 +229,33 @@ Controller.prototype.save = function () {
     }
 };
 
-function setError(str) {
-    const cont = document.getElementById('errorMessages');
-    cont.innerText = str;
+// Controller.prototype.changeInputId = function () {
+//    document.getElementById('inputIdError').innerHTML='';
+// };
+//
+// Controller.prototype.changeInputFName = function () {
+//     document.getElementById('inputFNameError').innerHTML='';
+// };
+//
+// Controller.prototype.changeInputLName = function () {
+//     document.getElementById('inputLNameError').innerHTML='';
+// };
+//
+// Controller.prototype.changeInputAge = function () {
+//     document.getElementById('inputAgeError').innerHTML='';
+// };
+
+// function setError(str) {
+//     const cont = document.getElementById('errorMessages');
+//     cont.innerText = str;
+// }
+
+
+
+// function clearErrorInput(idInput, idError) {
+//
+// }
+
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
 }
