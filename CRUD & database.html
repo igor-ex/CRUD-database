@@ -8,7 +8,11 @@
 <body>
 <h1 class="page-title">CRUD & database</h1>
 <div class="wrapper">
-    <span id="logOut" class="logout">Log Out</span>
+    <div class="user-nav">
+        <span id="logOut" class="user-nav__logout">Log Out</span>
+        <span id="usernameCont"></span>
+    </div>
+
     <div id="errorMessages" class="error-messages"></div>
     <div class="inputs" >
         <div class="inputs__row">
@@ -37,7 +41,8 @@
     <button class="buttons__button" id = "updateData">Update</button>
     <button class="buttons__button" id = "delElement">Delete</button>
     <button class="buttons__button" id = "clearLSTab">Clear</button>
-    <button class="buttons__button" id = "saveLs">Save</button>
+    <button class="buttons__button" id = "saveLs">Save LS</button>
+    <button class="buttons__button" id = "readLs">Read LS</button>
 </div>
     <table id="myTable" class="table">
         <caption>People</caption>

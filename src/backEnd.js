@@ -7,11 +7,19 @@ function BackEnd() {
 //функции доступа к серверу принимают объект с данными и два коллбэка - при успеехе или неуспехе
 //операции. В колбэк будет положен объект данных
 BackEnd.prototype.logIn = function (data, successCallback, failCallback) {
-    sendPOST('http://localhost:3000/loginUser', data, successCallback, failCallback);
+    sendPOST('/loginUser', data, successCallback, failCallback);
 };
 
 BackEnd.prototype.signUp = function (data, successCallback, failCallback) {
     sendPOST('/createUser', data, successCallback, failCallback);
+};
+
+BackEnd.prototype.checkSession = function (data, successCallback, failCallback) {
+    sendPOST('/checkSession', data, successCallback, failCallback);
+};
+
+BackEnd.prototype.logOut = function (data, successCallback, failCallback) {
+    sendPOST('/logoutUser', data, successCallback, failCallback);
 };
 
 BackEnd.prototype.create = function (data, successCallback, failCallback) {
@@ -28,6 +36,10 @@ BackEnd.prototype.update = function (data, successCallback, failCallback) {
 
 BackEnd.prototype.clear = function (data, successCallback, failCallback) {
     sendPOST('/clearEntry', data, successCallback, failCallback);
+};
+
+BackEnd.prototype.load = function (data, successCallback, failCallback) {
+    sendPOST('/refreshAllEntries', data, successCallback, failCallback);
 };
 
 function sendPOST(url, data, callback, callbackFail) {

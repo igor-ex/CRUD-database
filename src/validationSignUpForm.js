@@ -65,20 +65,3 @@ function submitListener (event) {
 function clearError () {
     error.innerHTML = '';
 }
-
-btnSingUp.addEventListener("click", saveLS);
-
-
-const inputLs = document.querySelectorAll(".input-ls");
-
-function saveLS() {
-    const dataUser = {
-        loginUser: inputLs[0].value,
-        emailUser: inputLs[1].value,
-        passwordUser: inputLs[2].value,
-    };
-    localStorage.setItem("dataUser", JSON.stringify(dataUser));
-}
-
-
-

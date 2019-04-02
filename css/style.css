@@ -67,10 +67,16 @@ body {
   max-width: 1000px;
   margin: auto;
 }
-.logout {
+.user-nav {
+  display: flex;
+  justify-content: space-between;
+}
+.user-nav__logout {
   cursor: pointer;
-  -webkit-user-select: none;
   user-select: none;
+}
+.user-nav__logout:hover {
+  text-decoration: underline;
 }
 .error-messages {
   padding-bottom: 20px;
