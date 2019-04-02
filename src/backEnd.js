@@ -59,9 +59,16 @@ function sendPOST(url, data, callback, callbackFail) {
             } else {
                 console.log("response status", xhr.status, xhr.responseText);
                 typeof callbackFail === 'function' ? callbackFail(response, xhr.status) : void 0;
+                setError('server error, status ' + xhr.status);
             }
         }
     };
     //callback({error: false});
-    xhr.send(JSON.stringify(data));
+    let str;
+    try {
+        str = JSON.stringify(data);
+    } catch {
+        str = data;
+    }
+    xhr.send(str);
 }

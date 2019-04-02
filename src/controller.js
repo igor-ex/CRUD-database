@@ -23,6 +23,7 @@ function Controller() {
 
 Controller.prototype.init = function () {
     this.user.init();
+    this.load();
 };
 
 //Поиск элемента в массиве elementsList по его id
@@ -57,20 +58,23 @@ Controller.prototype.insertElement = function (e, index) {
         const data = {};
         Object.assign(data, e);
         data.userID = this.user.sessionIdentifier;
-        this.backEnd.create(data, response => {
-            if (!response.err) {
-                this.elementsList.splice(index, 0, e);
-                //перерисовка всех связанных элементов отображения
-                const arr = this.elementsList;
-                this.views.forEach(function (view) {
-                    view.repaint('insert', index, arr)
-                });
-            } else {
-        //        setError(response.message);
-                this.arrError.push({entryField: 'id', errStr:response.message});
+
+        return new Promise((resolve, reject) => {
+            this.backEnd.create(data, response => {
+                if (!response.err) {
+                    this.elementsList.splice(index, 0, e);
+                    //перерисовка всех связанных элементов отображения
+                    const arr = this.elementsList;
+                    this.views.forEach(function (view) {
+                        view.repaint('insert', index, arr)
+                    });
+                    resolve();
+                } else {
+                    //setError(response.message);
+                    reject(response.message);
                 }
+            });
         });
-        return true;
     } else {
         this.arrError.push({entryField: 'id', errStr:'Такой Id уже имеется, введите уникальный'});
         return false;
@@ -162,7 +166,7 @@ Controller.prototype.updateElement = function (e) {
 };
 
 Controller.prototype.clear = function () {
-    this.backEnd.clear(this.user.sessionIdentifier, data => {
+    this.backEnd.clear({userID: this.user.sessionIdentifier}, data => {
         if (!data.error) {
             this.elementsList.length = 0;
 
@@ -181,7 +185,7 @@ Controller.prototype.clear = function () {
 
 Controller.prototype.load = function () {
 
-    this.backEnd.load(this.user.sessionIdentifier, data => {
+    this.backEnd.load({userID: this.user.sessionIdentifier}, data => {
         if (!data.err) {
 
             //отрисовка всех связанных элементов отображения

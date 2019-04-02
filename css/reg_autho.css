@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab&subset=cyrillic');
+
 body {
-    font-family: tahoma;
+    font-family: 'Roboto Slab', serif;
 }
 
 .registration{
@@ -58,4 +60,9 @@ label {
     height: 2em;
     padding-bottom: 10px;
     color: #f00;
+}
+
+.error-messages {
+    color: #f00;
+    font-size: 14px;
 }

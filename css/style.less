@@ -132,6 +132,17 @@ body {
             background: lighten(@base-color, 14%);
         }
     }
+
+    &__error{
+        font-size: 18px;
+        margin-bottom: 7px;
+        padding-bottom: 20px;
+        color: #f00;
+
+        &_enabled {
+            padding-bottom: 0;
+        }
+    }
     
     @media (max-width: 550px) {
         flex-direction: column;

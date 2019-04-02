@@ -101,10 +101,13 @@ NavigationView.prototype.addStart = function () {
 };
 
 NavigationView.prototype.addEnd = function () {
-    if (!this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value))) {
+    const res = this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value));
+    if (!res) {
         this.setAllErrorInput(this.controller.arrError);
     } else {
         this.clearAllErrorInput();
+
+        res.catch(errMess => this.setErrorInput(this.inpId, this.errInpId, errMess));
 
     }
 };
@@ -180,10 +183,12 @@ NavigationView.prototype.setAllErrorInput = function(arrError) {
 
 NavigationView.prototype.setErrorInput = function(inp, err, errStr) {
     err.innerText = errStr;
+    err.classList.add('inputs__error_enabled');
 };
 
 NavigationView.prototype.clearErrorInput = function(inp, err) {
     err.innerText = '';
+    err.classList.remove('inputs__error_enabled')
 };
 
 NavigationView.prototype.clearAllErrorInput = function() {

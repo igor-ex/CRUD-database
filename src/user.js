@@ -15,7 +15,7 @@ User.prototype.init = function () {
             this.goToLogInPage();
         }
     }, res => {
-        setError('Ошибка сервера. Вы не можете добавлять данные в базу');
+        setError('Ошибка сервера. Вы не можете добавлять данные в базу. ' + res.message);
     });
 
     const logoutEl = document.getElementById('logOut');
@@ -28,7 +28,7 @@ User.prototype.isLoggedIn = function (callback, failCallback) {
     //     return false;
     // }
     const backEnd = new BackEnd();//плохое решение!!!
-    backEnd.checkSession(sessionId,callback, failCallback);
+    backEnd.checkSession({id: sessionId},callback, failCallback);
 };
 
 User.prototype.signUp = function (data) {
@@ -38,11 +38,11 @@ User.prototype.signUp = function (data) {
             this.goToLogInPage();
             return true;
         } else {
-            alert(response.message);
+            setError(response.message);
             return false;
         }
     }, response => {
-        alert('server fails');
+        setError('server fails');
         return false;
     });
 };
@@ -60,11 +60,11 @@ User.prototype.logIn = function (data) {
             this.goToMainPage();
             return true;
         } else {
-            alert(response.message);
+            setError(response.message);
             return false;
         }
     }, response => {
-        alert('server fails');
+        setError('server fails');
         return false;
     });
 };
@@ -85,13 +85,18 @@ User.prototype.logOut = function () {
     this.removeIdentifier();
     localStorage.removeItem('userLogin');
 
-    location.href = 'public/singIn (authorization).html';
+    location.href = 'public/authorization.html';
 };
 
 User.prototype.goToMainPage = function () {
-    location.href = '../CRUD & database.html';
+    location.href = '../index.html';
 };
 
 User.prototype.goToLogInPage = function () {
-    location.href = 'singIn (authorization).html';
+    location.href = 'authorization.html';
 };
+
+function setError(str) {
+    const cont = document.getElementById('errorMessages');
+    cont.innerText = str;
+}
