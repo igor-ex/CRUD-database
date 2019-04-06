@@ -1,0 +1,11 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style type="text/css"><![CDATA[
+      polygon {
+        fill: #ffff86;
+        /*fill-opacity: .9;*/
+      }
+    ]]></style>
+    </defs>
+    <polygon points="0,0 50,30, 100,0" />
+</svg>

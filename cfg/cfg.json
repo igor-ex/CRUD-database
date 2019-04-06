@@ -1,1 +1,1 @@
-{"connections":[{"Name":"PersonsData","database":"localhost:/home/home/Документи/HTML/HWServerPersons/db/PERSON.FDB","user":"SYSDBA","password":"masterkey","role":""}]}
+{"connections":[{"Name":"PersonsData","database":"localhost:/home/home/Документи/Оксана/FrontEndOksana/HW_CRUD-database--2/CRUD-database/db/PERSON.FDB", "user":"SYSDBA","password":"masterkey","role":""}]}
