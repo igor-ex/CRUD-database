@@ -2,6 +2,7 @@
 
 function User() {
     this.sessionIdentifier = null;
+    this.backEnd = null;
 }
 
 User.prototype.init = function () {
@@ -12,7 +13,16 @@ User.prototype.init = function () {
             const usernameCont = document.getElementById('usernameCont');
             usernameCont.innerText = localStorage.getItem('userLogin');
         } else {
-            this.goToLogInPage();
+            let counter = 5;
+            const notify = () => {
+                if (counter <= 0) {
+                    this.goToLogInPage();
+                }
+                setError(`You are not logged in and will be redirected in ${counter} sec`);
+                counter--;
+            };
+            notify();
+            setInterval(notify, 1000);
         }
     }, res => {
         setError('Ошибка сервера. Вы не можете добавлять данные в базу. ' + res.message);
@@ -27,8 +37,10 @@ User.prototype.isLoggedIn = function (callback, failCallback) {
     // if (sessionId === null) {
     //     return false;
     // }
-    const backEnd = new BackEnd();//плохое решение!!!
-    backEnd.checkSession({id: sessionId},callback, failCallback);
+    if (this.backEnd === null) {
+        this.backEnd = new BackEnd();//плохое решение!!!
+    }
+    this.backEnd.checkSession({id: sessionId},callback, failCallback);
 };
 
 User.prototype.signUp = function (data) {
@@ -84,8 +96,16 @@ User.prototype.removeIdentifier = function () {
 User.prototype.logOut = function () {
     this.removeIdentifier();
     localStorage.removeItem('userLogin');
-
-    location.href = 'authorization.html';
+    if (this.backEnd === null) {
+        this.backEnd = new BackEnd();//плохое решение!!!
+    }
+    this.backEnd.logOut(res => {
+        if (!res.err) {
+            location.href = 'authorization.html';
+        }
+    }, fail => {
+        setError('cannot reach server while logging out');
+    });
 };
 
 User.prototype.goToMainPage = function () {

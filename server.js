@@ -140,12 +140,15 @@ app.post('/createUser', function (req, res) {
 app.post('/logoutUser', function (req, res) {
     req.session = null;
     console.log('user logout');
+    const out = {err: false};
+    res.end(JSON.stringify(out));
 });
 
 app.post('/checkSession', function (req, res) {
     const out = {err: false, message: "", id: -1};
-console.log('checking session');
-    if(!req.session) {
+    console.log('checking session');
+    console.log(req.session, '(session)')
+    if(req.session.user_id === undefined) {
         out.err = true;
         out.message = 'session is ended';
     }
@@ -163,6 +166,10 @@ app.post('/refreshAllEntries', function (req, res) {
     console.log(sql);
     const out = {err: false, message: "", id: -1, rows: []};
     try {
+        if (req.session.user_id === undefined) {
+            console.log('you are not loged in');
+            throw new Error('You are not logged in');
+        }
         const conn = fb.createConnection();
         conn.connectSync(dbConnParams.database, dbConnParams.user, dbConnParams.password, dbConnParams.role);
         const rs = conn.querySync(sql);
@@ -182,15 +189,19 @@ app.post('/refreshAllEntries', function (req, res) {
 // добавление новой строки записи в Базу данных для Юзера
 app.post('/addNewEntry', function (req, res) {
     console.log(req.body);
-    // Выподняем SQL запрос для добавдения строки используя
-    // req.body.userID, req.body.id, req.body.fName, req.body.lName, req.body.age
-    const sql = `insert into PERSONS (ID, ID_USER, FNAME, LNAME, AGE) values (${req.body.id}, ${req.session.user_id}, '${req.body.fName}', '${req.body.lName}', ${req.body.age})`;
-
-    console.log(sql);
-    console.log(req.body);
+    console.log('session', req.session);
     const out = {err: true, message: "", id: -1};
-
     try {
+        if (req.session.user_id === undefined) {
+            console.log('you are not loged in');
+            throw new Error('You are not logged in');
+        }
+        // Выподняем SQL запрос для добавдения строки используя
+        // req.body.userID, req.body.id, req.body.fName, req.body.lName, req.body.age
+        const sql = `insert into PERSONS (ID, ID_USER, FNAME, LNAME, AGE) values (${req.body.id}, ${req.session.user_id}, '${req.body.fName}', '${req.body.lName}', ${req.body.age})`;
+
+        console.log(sql);
+
         const conn = fb.createConnection();
         conn.connectSync(dbConnParams.database, dbConnParams.user, dbConnParams.password, dbConnParams.role);
         conn.querySync(sql);
@@ -227,6 +238,10 @@ app.post('/updateEntry', function (req, res) {
     const out = {err: true, message: "", id: -1};
 
     try {
+        if (req.session.user_id === undefined) {
+            console.log('you are not loged in');
+            throw new Error('You are not logged in');
+        }
         const conn = fb.createConnection();
         conn.connectSync(dbConnParams.database, dbConnParams.user, dbConnParams.password, dbConnParams.role);
         conn.querySync(sql);
@@ -260,6 +275,10 @@ app.post('/removeEntry', function (req, res) {
     const out = {err: true, message: "", id: -1};
 
     try {
+        if (req.session.user_id === undefined) {
+            console.log('you are not loged in');
+            throw new Error('You are not logged in');
+        }
         const conn = fb.createConnection();
         conn.connectSync(dbConnParams.database, dbConnParams.user, dbConnParams.password, dbConnParams.role);
         conn.querySync(sql);
@@ -292,6 +311,10 @@ app.post('/clearEntry', function (req, res) {
     const out = {err: true, message: "", id: -1};
 
     try {
+        if (req.session.user_id === undefined) {
+            console.log('you are not loged in');
+            throw new Error('You are not logged in');
+        }
         const conn = fb.createConnection();
         conn.connectSync(dbConnParams.database, dbConnParams.user, dbConnParams.password, dbConnParams.role);
         conn.querySync(sql);

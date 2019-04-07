@@ -18,8 +18,8 @@ BackEnd.prototype.checkSession = function (data, successCallback, failCallback) 
     sendPOST('/checkSession', data, successCallback, failCallback);
 };
 
-BackEnd.prototype.logOut = function (data, successCallback, failCallback) {
-    sendPOST('/logoutUser', data, successCallback, failCallback);
+BackEnd.prototype.logOut = function (successCallback, failCallback) {
+    sendPOST('/logoutUser', {}, successCallback, failCallback);
 };
 
 BackEnd.prototype.create = function (data, successCallback, failCallback) {

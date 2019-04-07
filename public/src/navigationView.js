@@ -100,14 +100,18 @@ NavigationView.prototype.addStart = function () {
     }
 };
 
-NavigationView.prototype.addEnd = function () {
+NavigationView.prototype.addEnd = async function () {
     const res = this.controller.insertElement(new Entry(this.inpId.value, this.inpFName.value, this.inpLName.value, this.inpAge.value));
     if (!res) {
         this.setAllErrorInput(this.controller.arrError);
     } else {
         this.clearAllErrorInput();
 
-        res.catch(errMess => this.setErrorInput(this.inpId, this.errInpId, errMess));
+        try {
+            await res;
+        } catch (e) {
+            this.setErrorInput(this.inpId, this.errInpId, e);
+        }
 
     }
 };
